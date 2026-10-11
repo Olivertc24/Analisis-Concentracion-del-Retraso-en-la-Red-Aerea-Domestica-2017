@@ -126,7 +126,8 @@ describe a ningún vuelo.
 
 7. **Publicar los resultados.** Disponer un aplicativo interactivo en Streamlit
    y un tablero en Tableau Public que permitan recorrer la investigación
-   completa y consultar la base directamente.
+   completa y consultar la base directamente. *(Aplicativo construido; falta
+   desplegarlo y hacer el tablero.)*
 
 ---
 
@@ -165,6 +166,14 @@ Base de datos/
   DENORMALIZACION.md     El esquema en estrella, dimensión por dimensión
   conversion_duckdb.sql  travel_analitica.sqlite  ->  travel_analitica.duckdb
   CONVERSION_DUCKDB.md   Por qué DuckDB, y qué cuesta
+data/
+  travel_analitica.sqlite  La base del aplicativo. 5 MB, versionada.
+src/
+  query_manager.py       Acceso a datos: DuckDB en memoria sobre el SQLite
+  stats_logic.py         Paleta, formato castellano y figuras
+app.py                   Portada: el hallazgo central
+pages/                   Ocho páginas, una por objetivo
+requirements.txt
 ```
 
 Las etapas siguientes —modelo dimensional, explotación analítica, aplicativo y
@@ -172,6 +181,32 @@ tablero— irán añadiendo sus propias carpetas a medida que se completen.
 
 Ninguna base de datos se versiona: pesan 104 MB, 186 MB, 5 MB y 7,5 MB, y las
 tres derivadas se reconstruyen con los scripts.
+
+---
+
+## El aplicativo
+
+Ocho páginas que recorren los objetivos de la investigación: marco
+metodológico, la forma de la distribución, la concentración en la red, el
+reparto temporal, la demora prolongada, consulta libre sobre el esquema,
+conclusiones y bibliografía.
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+**Es autocontenido.** `data/travel_analitica.sqlite` viaja en el repositorio —
+pesa 5 MB— y el aplicativo construye con ella un DuckDB **en memoria** al
+arrancar: 65 milisegundos una vez por sesión, y a cambio todo el repertorio
+estadístico que el objetivo 3 necesita y SQLite no tiene. No hay ningún
+servicio externo, ninguna credencial y ninguna base que descargar.
+
+Se versiona la base de **SQLite** y no la de DuckDB a propósito: el formato de
+SQLite es estable desde hace dos décadas, mientras que el de DuckDB puede
+cambiar entre versiones, y un artefacto versionado que una versión futura no
+sepa leer deja de ser reproducible.
 
 ---
 
