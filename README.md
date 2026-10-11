@@ -132,9 +132,15 @@ describe a ningún vuelo.
 
 ## El modelo de datos
 
-La fuente pasa por dos transformaciones. La primera la normaliza hasta tercera
-forma normal; la segunda deriva de ella el **esquema en estrella** que alimenta
-el aplicativo y el tablero:
+La fuente pasa por dos transformaciones. La primera la **normaliza hasta
+tercera forma normal**, declarando las claves que el volcado no traía y
+resolviendo las dos dependencias transitivas que se verificaron sobre los
+datos:
+
+![Esquema normalizado hasta la tercera forma normal](assets/esquema_normalizado.png)
+
+La segunda deriva de ella el **esquema en estrella** que alimenta el aplicativo
+y el tablero:
 
 ![Esquema en estrella de la base analítica](assets/esquema_estrella.png)
 
@@ -149,8 +155,9 @@ del registro queda contable en vez de escondida entre nulos. El detalle está en
 
 ```
 assets/
-  banner_retraso.png     Cabecera, con su script generador
-  esquema_estrella.png   Diagrama del modelo, con su script generador
+  banner_retraso.png       Cabecera, con su script generador
+  esquema_normalizado.png  Diagrama del esquema en 3FN, con su generador
+  esquema_estrella.png     Diagrama del modelo dimensional, con su generador
 Base de datos/
   normalizacion.sql      travel.sqlite       ->  travel_normalizada.sqlite
   NORMALIZACION.md       El proceso, decisión por decisión

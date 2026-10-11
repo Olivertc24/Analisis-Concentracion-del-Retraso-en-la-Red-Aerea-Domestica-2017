@@ -179,19 +179,13 @@ discrepancias en los 33.121 vuelos.
 
 ## 7. El esquema resultante
 
-```
-ciudades ──< aeropuertos ──┬──< rutas >── aeronaves ──< asientos
-                           │        │                      │
-                           └────────┘                      │
-                                    │                      │
-                     estados_vuelo >┴< vuelos              │
-                                          │                │
-       reservas ──< pasajes ──< cupones >─┘                │
-                                   │  │                    │
-                                   │  └──> clases_tarifarias
-                                   │
-                                   └──< tarjetas_embarque
-```
+![Esquema normalizado hasta la tercera forma normal](../assets/esquema_normalizado.png)
+
+El color no es decorativo: distingue las **cuatro tablas que nacieron de la
+normalización** de las ocho que ya existían en la fuente y aquí sólo se
+depuraron. `ciudades` y `rutas` resuelven las dos dependencias transitivas
+verificadas; `clases_tarifarias` y `estados_vuelo` imponen la integridad de
+dominio que el origen no tenía.
 
 | Tabla | Filas | Por qué existe |
 |---|---:|---|
