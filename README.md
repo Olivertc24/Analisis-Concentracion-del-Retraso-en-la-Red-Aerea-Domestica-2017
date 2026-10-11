@@ -56,7 +56,7 @@ minutos y se agota en los 11; la alta culmina entre los 180 y los 209 y llega
 hasta los 277.
 
 Y la consecuencia que ordena toda la investigación: **la demora media es de
-12,20 minutos, un valor que cae dentro del hueco**. Ningún vuelo de la base
+12,21 minutos, un valor que cae dentro del hueco**. Ningún vuelo de la base
 tiene la demora media. Resumir este fenómeno con un promedio no es una
 simplificación aceptable: es describir algo que no existe.
 
@@ -96,8 +96,9 @@ describe a ningún vuelo.
    forma normal —resolver los campos multivaluados, depurar los nulos
    textuales, corregir el formato de las fechas y declarar las claves que la
    fuente omite— y derivar de ella el esquema dimensional que alimenta el
-   aplicativo y el tablero. *(Normalización cumplida:
-   [NORMALIZACION.md](Base%20de%20datos/NORMALIZACION.md).)*
+   aplicativo y el tablero. *(Etapa cumplida:
+   [NORMALIZACION.md](Base%20de%20datos/NORMALIZACION.md) y
+   [DENORMALIZACION.md](Base%20de%20datos/DENORMALIZACION.md).)*
 
 2. **Delimitar el universo observable.** Determinar cuáles de los 33.121 vuelos
    programados tienen hora real de salida y por qué los demás no la tienen,
@@ -129,21 +130,39 @@ describe a ningún vuelo.
 
 ---
 
+## El modelo de datos
+
+La fuente pasa por dos transformaciones. La primera la normaliza hasta tercera
+forma normal; la segunda deriva de ella el **esquema en estrella** que alimenta
+el aplicativo y el tablero:
+
+![Esquema en estrella de la base analítica](assets/esquema_estrella.png)
+
+El grano es el vuelo. `h_vuelos` carga los 33.121 programados y `h_demoras`,
+en relación 1:0..1, sólo los 16.773 que llegaron a despegar: así la cobertura
+del registro queda contable en vez de escondida entre nulos. El detalle está en
+[DENORMALIZACION.md](Base%20de%20datos/DENORMALIZACION.md).
+
+---
+
 ## Estructura del repositorio
 
 ```
 assets/
   banner_retraso.png     Cabecera, con su script generador
+  esquema_estrella.png   Diagrama del modelo, con su script generador
 Base de datos/
-  normalizacion.sql      travel.sqlite  ->  travel_normalizada.sqlite
+  normalizacion.sql      travel.sqlite       ->  travel_normalizada.sqlite
   NORMALIZACION.md       El proceso, decisión por decisión
+  denormalizacion.sql    travel_normalizada  ->  travel_analitica.sqlite
+  DENORMALIZACION.md     El esquema en estrella, dimensión por dimensión
 ```
 
 Las etapas siguientes —modelo dimensional, explotación analítica, aplicativo y
 tablero— irán añadiendo sus propias carpetas a medida que se completen.
 
-Ninguna base de datos se versiona: la fuente pesa 104 MB y las derivadas se
-reconstruyen con los scripts.
+Ninguna base de datos se versiona: pesan 104 MB, 186 MB y 5 MB, y las dos
+derivadas se reconstruyen con los scripts.
 
 ---
 
@@ -161,10 +180,12 @@ trabajo añade el suyo y lo documenta junto a él.
 ```bash
 cd "Base de datos"
 sqlite3 travel_normalizada.sqlite < normalizacion.sql
+sqlite3 travel_analitica.sqlite   < denormalizacion.sql
 ```
 
-La normalización tarda **2,3 segundos** y no necesita nada más que el cliente
-`sqlite3`: ni Python, ni dependencias, ni servicios externos.
+La normalización tarda **2,3 segundos** y la denormalización **1**. Ninguna de
+las dos necesita nada más que el cliente `sqlite3`: ni Python, ni dependencias,
+ni servicios externos.
 
 ---
 
