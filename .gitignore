@@ -14,6 +14,13 @@ travel.sqlite
 # formato de SQLite es estable y el de DuckDB puede cambiar entre versiones.
 !data/travel_analitica.sqlite
 
+# EXCEPCION: las cuatro bases del trabajo tambien viajan, en "Base de datos/".
+# Las dos grandes van COMPRIMIDAS porque GitHub rechaza cualquier archivo de
+# mas de 100 MB: travel.sqlite pesa 104,6 MB y travel_normalizada 186,4 MB.
+# Comprimidas quedan en 29 y 56 MB. Hay que descomprimirlas antes de usarlas:
+#     gunzip -k travel.sqlite.gz
+!Base de datos/travel_analitica.duckdb
+
 # --- Credenciales ----------------------------------------------------------
 # Nunca, bajo ningun concepto. La regla existe antes que el archivo.
 .streamlit/secrets.toml

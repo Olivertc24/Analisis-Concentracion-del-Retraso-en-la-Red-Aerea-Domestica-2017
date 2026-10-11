@@ -217,8 +217,17 @@ git clone https://github.com/Olivertc24/Analisis-Concentracion-del-Retraso-en-la
 cd Analisis-Concentracion-del-Retraso-en-la-Red-Aerea-Domestica-2017
 ```
 
-Se coloca `travel.sqlite` en `Base de datos/` —pesa 104 MB, por eso no se
-versiona— y se ejecutan los scripts de esa carpeta en orden. Cada etapa del
+Las cuatro bases viajan en el repositorio. Las dos grandes van **comprimidas**,
+porque GitHub rechaza cualquier archivo de más de 100 MB:
+
+```bash
+cd "Base de datos"
+gunzip -k travel.sqlite.gz              # 29 MB  ->  104,6 MB
+gunzip -k travel_normalizada.sqlite.gz  # 56 MB  ->  186,4 MB
+```
+
+Para reconstruirlas desde cero en lugar de descomprimirlas, basta `travel.sqlite`
+y ejecutar los scripts de esa carpeta en orden. Cada etapa del
 trabajo añade el suyo y lo documenta junto a él.
 
 ```bash
