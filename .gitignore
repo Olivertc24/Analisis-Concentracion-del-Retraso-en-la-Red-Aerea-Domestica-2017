@@ -8,6 +8,12 @@ travel.sqlite
 *.sqlite
 *.duckdb
 
+# EXCEPCION: la base analitica SI se versiona, en data/. Pesa 5 MB y es lo que
+# hace que el aplicativo sea autocontenido: sin ella, un despliegue no tendria
+# datos. Se versiona la de SQLite y no la de DuckDB a proposito, porque el
+# formato de SQLite es estable y el de DuckDB puede cambiar entre versiones.
+!data/travel_analitica.sqlite
+
 # --- Credenciales ----------------------------------------------------------
 # Nunca, bajo ningun concepto. La regla existe antes que el archivo.
 .streamlit/secrets.toml

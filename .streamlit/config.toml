@@ -1,0 +1,18 @@
+# Tema e infraestructura del aplicativo.
+#
+# fileWatcherType = "none" no es cosmetico: en el contenedor de Streamlit Cloud
+# el vigilante de archivos agota el limite de "inotify watches" y llena la
+# bitacora de errores hasta hacerla ilegible. En produccion no hay nada que
+# vigilar, porque el codigo no cambia mientras la aplicacion corre.
+
+[server]
+fileWatcherType = "none"
+headless = true
+
+[theme]
+base                = "dark"
+primaryColor        = "#2BD4E8"
+backgroundColor     = "#080E14"
+secondaryBackgroundColor = "#101E28"
+textColor           = "#E8F2F5"
+font                = "sans serif"
