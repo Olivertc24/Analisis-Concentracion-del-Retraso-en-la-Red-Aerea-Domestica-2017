@@ -1,0 +1,41 @@
+# --- Bases de datos --------------------------------------------------------
+# La base original (travel.sqlite, 104 MB) y las que se derivan de ella no se
+# versionan: se reconstruyen con los scripts de "Base de datos/".
+travel.sqlite
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.duckdb
+
+# --- Credenciales ----------------------------------------------------------
+# Nunca, bajo ningun concepto. La regla existe antes que el archivo.
+.streamlit/secrets.toml
+.env
+*.token
+
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+
+# --- Entornos y editores ---------------------------------------------------
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# --- Salidas temporales ----------------------------------------------------
+*.log
+.ipynb_checkpoints/
+
+# --- Tableau ---------------------------------------------------------------
+# Archivos temporales de recuperacion que Tableau deja junto al libro.
+*.twbr
+.~*
+# La extraccion Hyper viaja dentro del .twbx, asi que no se versiona aparte.
+*.hyper
