@@ -96,7 +96,8 @@ describe a ningún vuelo.
    forma normal —resolver los campos multivaluados, depurar los nulos
    textuales, corregir el formato de las fechas y declarar las claves que la
    fuente omite— y derivar de ella el esquema dimensional que alimenta el
-   aplicativo y el tablero.
+   aplicativo y el tablero. *(Normalización cumplida:
+   [NORMALIZACION.md](Base%20de%20datos/NORMALIZACION.md).)*
 
 2. **Delimitar el universo observable.** Determinar cuáles de los 33.121 vuelos
    programados tienen hora real de salida y por qué los demás no la tienen,
@@ -133,7 +134,9 @@ describe a ningún vuelo.
 ```
 assets/
   banner_retraso.png     Cabecera, con su script generador
-Base de datos/           Scripts de reconstrucción del modelo y su documentación
+Base de datos/
+  normalizacion.sql      travel.sqlite  ->  travel_normalizada.sqlite
+  NORMALIZACION.md       El proceso, decisión por decisión
 ```
 
 Las etapas siguientes —modelo dimensional, explotación analítica, aplicativo y
@@ -153,8 +156,15 @@ cd Analisis-Concentracion-del-Retraso-en-la-Red-Aerea-Domestica-2017
 
 Se coloca `travel.sqlite` en `Base de datos/` —pesa 104 MB, por eso no se
 versiona— y se ejecutan los scripts de esa carpeta en orden. Cada etapa del
-trabajo añade el suyo y lo documenta junto a él; la primera no necesita más que
-el cliente `sqlite3`.
+trabajo añade el suyo y lo documenta junto a él.
+
+```bash
+cd "Base de datos"
+sqlite3 travel_normalizada.sqlite < normalizacion.sql
+```
+
+La normalización tarda **2,3 segundos** y no necesita nada más que el cliente
+`sqlite3`: ni Python, ni dependencias, ni servicios externos.
 
 ---
 
