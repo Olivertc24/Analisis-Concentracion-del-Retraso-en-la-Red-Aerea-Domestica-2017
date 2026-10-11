@@ -156,13 +156,15 @@ Base de datos/
   NORMALIZACION.md       El proceso, decisión por decisión
   denormalizacion.sql    travel_normalizada  ->  travel_analitica.sqlite
   DENORMALIZACION.md     El esquema en estrella, dimensión por dimensión
+  conversion_duckdb.sql  travel_analitica.sqlite  ->  travel_analitica.duckdb
+  CONVERSION_DUCKDB.md   Por qué DuckDB, y qué cuesta
 ```
 
 Las etapas siguientes —modelo dimensional, explotación analítica, aplicativo y
 tablero— irán añadiendo sus propias carpetas a medida que se completen.
 
-Ninguna base de datos se versiona: pesan 104 MB, 186 MB y 5 MB, y las dos
-derivadas se reconstruyen con los scripts.
+Ninguna base de datos se versiona: pesan 104 MB, 186 MB, 5 MB y 7,5 MB, y las
+tres derivadas se reconstruyen con los scripts.
 
 ---
 
@@ -181,11 +183,16 @@ trabajo añade el suyo y lo documenta junto a él.
 cd "Base de datos"
 sqlite3 travel_normalizada.sqlite < normalizacion.sql
 sqlite3 travel_analitica.sqlite   < denormalizacion.sql
+duckdb  travel_analitica.duckdb   < conversion_duckdb.sql
 ```
 
-La normalización tarda **2,3 segundos** y la denormalización **1**. Ninguna de
-las dos necesita nada más que el cliente `sqlite3`: ni Python, ni dependencias,
-ni servicios externos.
+Tardan **2,3 segundos**, **1** y **0,2** respectivamente. Todo el proceso de
+datos se reproduce con dos clientes de línea de comandos y **ningún lenguaje de
+programación**: ni Python, ni dependencias, ni servicios externos.
+
+Los dos primeros pasos bastan para tener el esquema en estrella completo; el
+tercero sólo hace falta para disponer del repertorio estadístico que el
+objetivo 3 necesita.
 
 ---
 
