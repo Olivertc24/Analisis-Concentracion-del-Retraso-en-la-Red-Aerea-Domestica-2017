@@ -1,35 +1,36 @@
 """
 Acceso a datos del aplicativo.
 
-POR QUE DUCKDB SOBRE UN ARCHIVO SQLITE
---------------------------------------
-El repositorio versiona `data/travel_analitica.sqlite`, de 5 MB, y no el
-archivo `.duckdb` equivalente. La razon no es el tamano sino la estabilidad del
-formato: SQLite garantiza compatibilidad hacia adelante desde hace dos decadas,
-mientras que el formato de almacenamiento de DuckDB puede cambiar entre
-versiones, y un artefacto versionado que una version futura no sepa leer deja
-de ser reproducible.
+TODO EL TRABAJO SE CONSULTA SOBRE LA BASE DUCKDB
+------------------------------------------------
+El aplicativo abre `Base de datos/travel_analitica.duckdb` en modo de SOLO
+LECTURA. No hay copia intermedia, ni conversion al arrancar, ni formato de
+texto por el camino: la misma base que construyo `conversion_duckdb.sql` es la
+que responde a cada consulta.
 
-Al arrancar, el aplicativo copia esas diez tablas a un DuckDB EN MEMORIA. Se
-midieron las dos alternativas:
+Eso trae dos cosas que el estudio necesita:
 
-    copiar a memoria al arrancar ... 65 ms de arranque,  1 ms por consulta
-    consultar el SQLite adjunto .... 14 ms de arranque,  4 ms por consulta
+  EL REPERTORIO ESTADISTICO. El objetivo 3 pide evaluar si la media y la
+  desviacion tipica son resumenes admisibles, y SQLite no tiene desviacion
+  tipica, ni moda, ni cuantiles, ni asimetria, ni curtosis. DuckDB si.
 
-Se elige la primera: el arranque ocurre una vez por sesion y queda en cache,
-mientras que las consultas ocurren en cada interaccion.
-
-Asi el aplicativo es autocontenido -no necesita ningun servicio externo- y
-dispone del repertorio estadistico completo de DuckDB, que es lo que el
-objetivo 3 de la investigacion necesita y SQLite no tiene.
+  LOS TIPOS. Las fechas son DATE, las marcas son TIMESTAMPTZ y las banderas
+  son BOOLEAN, de modo que el motor valida y compara de verdad en lugar de
+  interpretar texto.
 
 LA ZONA HORARIA
 ---------------
-Se fija a 'Europe/Moscow', la de la red estudiada. Sin ella, proyectar un
-instante a fecha desplazaria el dia y harian aparecer 62 dias de operacion
-donde hay 61. El analisis no depende de ello -la fecha local ya esta
-materializada en `fecha_id`- pero la columna `salida_programada` si se mostraria
-en otro huso.
+Se fija a 'Europe/Moscow', la de la red estudiada. `salida_programada` es un
+TIMESTAMP WITH TIME ZONE, y DuckDB lo MUESTRA en la zona de la sesion: sin
+fijarla, proyectar un instante a fecha desplazaria el dia y harian aparecer 62
+dias de operacion donde hay 61. El analisis no depende de ello -la fecha local
+ya esta materializada en `fecha_id`- pero la columna si.
+
+SOLO LECTURA
+------------
+`read_only=True` no es una precaucion formal. Permite que varias sesiones del
+aplicativo compartan el mismo archivo sin bloquearse, y hace imposible que una
+consulta de la pagina de consulta libre altere lo que ve otra pestaña.
 """
 
 from pathlib import Path
@@ -39,32 +40,24 @@ import pandas as pd
 import streamlit as st
 
 RAIZ = Path(__file__).resolve().parent.parent
-BASE = RAIZ / "data" / "travel_analitica.sqlite"
+BASE = RAIZ / "Base de datos" / "travel_analitica.duckdb"
 ZONA = "Europe/Moscow"
 
-TABLAS = ["d_tiempo", "d_franja", "d_aeropuerto", "d_ruta", "d_aeronave",
-          "d_estado", "d_regimen", "h_vuelos", "h_demoras", "parametros"]
 
-
-@st.cache_resource(show_spinner="Cargando la base analitica...")
+@st.cache_resource(show_spinner="Abriendo la base analitica...")
 def conexion() -> duckdb.DuckDBPyConnection:
-    """DuckDB en memoria con las diez tablas del esquema en estrella."""
+    """La base DuckDB del esquema en estrella, en solo lectura."""
     if not BASE.exists():
         st.error(
             f"**No se encuentra la base analitica.**\n\n"
-            f"Se esperaba en `{BASE.relative_to(RAIZ)}`. Se reconstruye "
-            f"ejecutando los scripts de `Base de datos/` y copiando el "
-            f"resultado a `data/`; el README lo explica paso a paso."
+            f"Se esperaba en `{BASE.relative_to(RAIZ)}`. Se reconstruye con "
+            f"los tres scripts de `Base de datos/`; el README lo explica paso "
+            f"a paso."
         )
         st.stop()
 
-    con = duckdb.connect()
-    con.execute("INSTALL sqlite; LOAD sqlite;")
+    con = duckdb.connect(str(BASE), read_only=True)
     con.execute(f"SET TimeZone='{ZONA}';")
-    con.execute(f"ATTACH '{BASE.as_posix()}' AS lite (TYPE sqlite, READ_ONLY);")
-    for tabla in TABLAS:
-        con.execute(f"CREATE TABLE {tabla} AS SELECT * FROM lite.{tabla}")
-    con.execute("DETACH lite")
     return con
 
 

@@ -8,18 +8,16 @@ travel.sqlite
 *.sqlite
 *.duckdb
 
-# EXCEPCION: la base analitica SI se versiona, en data/. Pesa 5 MB y es lo que
-# hace que el aplicativo sea autocontenido: sin ella, un despliegue no tendria
-# datos. Se versiona la de SQLite y no la de DuckDB a proposito, porque el
-# formato de SQLite es estable y el de DuckDB puede cambiar entre versiones.
-!data/travel_analitica.sqlite
-
-# EXCEPCION: las cuatro bases del trabajo tambien viajan, en "Base de datos/".
-# Las dos grandes van COMPRIMIDAS porque GitHub rechaza cualquier archivo de
-# mas de 100 MB: travel.sqlite pesa 104,6 MB y travel_normalizada 186,4 MB.
+# EXCEPCION: las cuatro bases del trabajo viajan en "Base de datos/". Las dos
+# grandes van COMPRIMIDAS porque GitHub rechaza cualquier archivo de mas de
+# 100 MB: travel.sqlite pesa 104,6 MB y travel_normalizada 186,4 MB.
 # Comprimidas quedan en 29 y 56 MB. Hay que descomprimirlas antes de usarlas:
 #     gunzip -k travel.sqlite.gz
+#
+# travel_analitica.duckdb es ademas LA BASE DEL APLICATIVO: la abre en solo
+# lectura, sin copia ni conversion. Sin ella un despliegue no tendria datos.
 !Base de datos/travel_analitica.duckdb
+!Base de datos/travel_analitica.sqlite
 
 # --- Credenciales ----------------------------------------------------------
 # Nunca, bajo ningun concepto. La regla existe antes que el archivo.
