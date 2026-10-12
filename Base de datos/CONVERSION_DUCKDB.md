@@ -205,7 +205,6 @@ aplicativo puede ser autocontenido. Añadiría una dependencia externa, una
 credencial que gestionar y un punto de fallo, a cambio de nada que aquí haga
 falta.
 
-**Queda una decisión pendiente para la etapa del aplicativo:** hoy ninguna base
-se versiona, de modo que un despliegue no tendría datos. Habrá que elegir qué
-se sube al repositorio —la base SQLite, la DuckDB o una exportación— cuando
-toque.
+**Esta base es la que usa el aplicativo.** Se versiona y se abre en sólo
+lectura, sin copia ni conversión al arrancar. Todo el trabajo analítico —el
+aplicativo y el extracto de Tableau— se consulta sobre ella.

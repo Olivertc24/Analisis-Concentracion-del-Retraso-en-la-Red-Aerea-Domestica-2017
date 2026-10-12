@@ -2,9 +2,9 @@
 
 ## El aplicativo en Streamlit Community Cloud
 
-El repositorio es **autocontenido**: `data/travel_analitica.sqlite` viaja en él
-y el aplicativo construye el DuckDB en memoria al arrancar. No hay base que
-descargar, ni credenciales, ni servicios externos que configurar.
+El repositorio es **autocontenido**: `Base de datos/travel_analitica.duckdb`
+viaja en él y el aplicativo la abre en sólo lectura. No hay base que descargar,
+ni credenciales, ni servicios externos que configurar.
 
 ### Pasos
 
@@ -44,7 +44,7 @@ código no cambia mientras la aplicación corre.
 DuckDB toma por defecto el 80 % de la memoria **de la máquina**, no la del
 contenedor, y el proceso muere sin dejar un error claro.
 
-**Aquí no debería ocurrir**, porque la base entera son 5 MB y cabe de sobra.
+**Aquí no debería ocurrir**, porque la base entera son 7,5 MB y cabe de sobra.
 Si llegara a pasar, se arregla añadiendo en `src/query_manager.py`, justo
 después de abrir la conexión:
 
@@ -69,9 +69,11 @@ plataforma se ve la línea que sustituye el paquete.
 
 ## El tablero en Tableau Public
 
-Los extractos se generan con
-[`Tableau/generar_extractos.py`](Tableau/generar_extractos.py) y el libro se
-construye en Tableau Desktop. Ver [`Tableau/README.md`](Tableau/README.md).
+El extracto se genera con
+[`Tableau/construir_hyper.py`](Tableau/construir_hyper.py), que lee
+**directamente de la base DuckDB** y escribe un `.hyper` nativo, sin ningún CSV
+por el camino. El libro se construye en Tableau Desktop. Ver
+[`Tableau/README.md`](Tableau/README.md).
 
 **Tableau Public no se conecta a fuentes en vivo**: sólo publica extractos. El
 tablero no consulta la base del aplicativo, lleva sus propios datos dentro.
