@@ -1,45 +1,62 @@
 # El tablero
 
-Cuatro extractos y cuatro hojas, una por hallazgo de la investigación.
+Un extracto `.hyper` con cuatro tablas, construido **directamente desde la base
+DuckDB**, y cuatro hojas, una por hallazgo de la investigación.
 
 ```bash
-python Tableau/generar_extractos.py
+python Tableau/construir_hyper.py
 ```
 
-| Extracto | Filas | Grano | Alimenta |
+| Tabla del extracto | Filas | Grano | Alimenta |
 |---|---:|---|---|
-| `cobertura.csv` | 61 | El día de operación | La frontera del registro |
-| `distribucion.csv` | 124 | El valor de demora observado | La forma, con su hueco |
-| `aeropuertos.csv` | 104 | El aeropuerto de salida | El mapa y la concentración |
-| `tiempo.csv` | 134 | Hora × día de la semana | El reparto temporal |
+| `cobertura` | 61 | El día de operación | La frontera del registro |
+| `distribucion` | 124 | El valor de demora observado | La forma, con su hueco |
+| `aeropuertos` | 104 | El aeropuerto de salida | El mapa y la concentración |
+| `tiempo` | 134 | Hora × día de la semana | El reparto temporal |
 
-Los cuatro juntos pesan **22 KB**. Se versionan.
+El archivo entero pesa **64 KB**. No se versiona: se regenera en un segundo, y
+cuando el libro esté construido viajará dentro del `.twbx`.
 
 ---
 
-## Por qué cuatro archivos y no uno
+## Por qué no hay ningún CSV por el camino
+
+Un CSV intermedio es **una copia sin tipos**: todo se vuelve texto y Tableau
+tiene que adivinar al leerlo. Adivina mal con frecuencia —las fechas, los
+decimales según la configuración regional, los acentos según la codificación—
+y cada error aparece en el tablero, no en el script, que es donde se podría
+corregir.
+
+`.hyper` es el **formato nativo de extracto de Tableau**: columnar, tipado y
+con índices. Los datos van de DuckDB a Hyper sin pasar por ningún formato de
+texto, de modo que un `SMALLINT` llega como entero y una fecha como fecha. El
+script lleva una tabla de correspondencia explícita entre los tipos de DuckDB y
+los de Hyper, y **se detiene** si encuentra uno que no sabe traducir, en lugar
+de degradarlo a texto en silencio.
+
+Tableau Public, además, **no admite conexiones en vivo**: sólo publica
+extractos. Aunque existiera un conector DuckDB para Tableau, el tablero
+publicado acabaría siendo un extracto igualmente.
+
+## Por qué cuatro tablas y no una
 
 Cada hoja tiene su propio **grano**. Con una sola tabla al grano más fino, cada
 hoja tendría que reagregar, y bastaría un filtro mal puesto para que una cifra
 dejara de cuadrar con el aplicativo.
 
-## Por qué se agrega en SQL y no en Tableau
+El **índice de concentración**, en particular, es un cociente de cuotas: los
+minutos del aeropuerto sobre los totales, dividido entre sus vuelos sobre los
+totales. En Tableau exigiría una expresión de nivel de detalle que se rompe en
+cuanto alguien aplica un filtro. Calculado en SQL, es una columna.
 
-El **índice de concentración** es un cociente de cuotas: los minutos del
-aeropuerto sobre los minutos totales, dividido entre sus vuelos sobre los
-vuelos totales. Calcularlo en Tableau exige expresiones de nivel de detalle
-que se rompen en cuanto alguien aplica un filtro. Calculado en SQL, es una
-columna, y además se puede verificar contra la base.
+## Los controles
 
-El script ejecuta cinco controles al terminar: la suma de vuelos de cada
-extracto tiene que dar **16.773** y la de minutos **204.740**. Si alguno falla,
-se detiene. Un tablero que muestre cifras distintas de las del aplicativo es
-peor que no tener tablero.
+El script termina leyendo **del propio `.hyper`**, no de las consultas que lo
+generaron, y comprueba que cada tabla sume **16.773** vuelos y **204.740**
+minutos. Si alguno falla, se detiene.
 
-## Un detalle de codificación
-
-Los CSV se escriben en **UTF-8 con BOM**. Sin él, Tableau en Windows los lee
-como latin-1 y «San Petersburgo» llega roto.
+Comprobar las consultas sería comprobar lo que el script creía escribir;
+comprobar el extracto es comprobar lo que Tableau va a leer.
 
 ---
 
@@ -62,5 +79,5 @@ como latin-1 y «San Petersburgo» llega roto.
 
 ## Lo que falta
 
-Construir el libro en Tableau Desktop con estos cuatro extractos y publicarlo
-en Tableau Public. El enlace se añadirá al README principal cuando esté.
+Construir el libro en Tableau Desktop sobre este extracto y publicarlo en
+Tableau Public. El enlace se añadirá al README principal cuando esté.
