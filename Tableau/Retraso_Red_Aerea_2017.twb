@@ -1,0 +1,982 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<workbook source-build="0.0.0 (0000.25.1024.2150)" source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AccessibleZoneTabOrder.true...AccessibleZoneTabOrder />
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+  <datasource caption="Cobertura" inline='true' name='federated.cobertura' version='18.1'>
+    <connection class='federated'>
+      <named-connections>
+        <named-connection caption="Cobertura" name='hyper.cobertura'>
+          <connection class='hyper' dbname='Data/retraso_red_aerea_2017.hyper' schema='Extract' server='' username='tableau_internal_user' />
+        </named-connection>
+      </named-connections>
+      <relation connection='hyper.cobertura' name="cobertura" table='[Extract].[cobertura]' type='table'>
+        <columns header='yes' outcome='6'>
+          <column datatype='date' name="fecha" ordinal='0' />
+          <column datatype='string' name="nombre_dia" ordinal='1' />
+          <column datatype='boolean' name="es_fin_de_semana" ordinal='2' />
+          <column datatype='boolean' name="hay_operados" ordinal='3' />
+          <column datatype='integer' name="programados" ordinal='4' />
+          <column datatype='integer' name="operados" ordinal='5' />
+        </columns>
+      </relation>
+      <metadata-records>
+        <metadata-record class='column'>
+          <remote-name>fecha</remote-name>
+          <remote-type>7</remote-type>
+          <local-name>[fecha]</local-name>
+          <parent-name>[cobertura]</parent-name>
+          <remote-alias>fecha</remote-alias>
+          <ordinal>0</ordinal>
+          <local-type>date</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>nombre_dia</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[nombre_dia]</local-name>
+          <parent-name>[cobertura]</parent-name>
+          <remote-alias>nombre_dia</remote-alias>
+          <ordinal>1</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>es_fin_de_semana</remote-name>
+          <remote-type>11</remote-type>
+          <local-name>[es_fin_de_semana]</local-name>
+          <parent-name>[cobertura]</parent-name>
+          <remote-alias>es_fin_de_semana</remote-alias>
+          <ordinal>2</ordinal>
+          <local-type>boolean</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>hay_operados</remote-name>
+          <remote-type>11</remote-type>
+          <local-name>[hay_operados]</local-name>
+          <parent-name>[cobertura]</parent-name>
+          <remote-alias>hay_operados</remote-alias>
+          <ordinal>3</ordinal>
+          <local-type>boolean</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>programados</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[programados]</local-name>
+          <parent-name>[cobertura]</parent-name>
+          <remote-alias>programados</remote-alias>
+          <ordinal>4</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>operados</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[operados]</local-name>
+          <parent-name>[cobertura]</parent-name>
+          <remote-alias>operados</remote-alias>
+          <ordinal>5</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+      </metadata-records>
+    </connection>
+    <aliases enabled='yes' />
+    <column datatype='date' name="[fecha]" role='dimension' type='ordinal' />
+    <column datatype='string' name="[nombre_dia]" role='dimension' type='nominal' />
+    <column datatype='boolean' name="[es_fin_de_semana]" role='dimension' type='nominal' />
+    <column datatype='boolean' name="[hay_operados]" role='dimension' type='nominal' />
+    <column datatype='integer' name="[programados]" role='measure' type='quantitative' />
+    <column datatype='integer' name="[operados]" role='measure' type='quantitative' />
+    <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+  </datasource>
+  <datasource caption="Distribucion" inline='true' name='federated.distribucion' version='18.1'>
+    <connection class='federated'>
+      <named-connections>
+        <named-connection caption="Distribucion" name='hyper.distribucion'>
+          <connection class='hyper' dbname='Data/retraso_red_aerea_2017.hyper' schema='Extract' server='' username='tableau_internal_user' />
+        </named-connection>
+      </named-connections>
+      <relation connection='hyper.distribucion' name="distribucion" table='[Extract].[distribucion]' type='table'>
+        <columns header='yes' outcome='6'>
+          <column datatype='integer' name="minutos" ordinal='0' />
+          <column datatype='string' name="regimen" ordinal='1' />
+          <column datatype='integer' name="orden_regimen" ordinal='2' />
+          <column datatype='integer' name="vuelos" ordinal='3' />
+        </columns>
+      </relation>
+      <metadata-records>
+        <metadata-record class='column'>
+          <remote-name>minutos</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[minutos]</local-name>
+          <parent-name>[distribucion]</parent-name>
+          <remote-alias>minutos</remote-alias>
+          <ordinal>0</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>regimen</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[regimen]</local-name>
+          <parent-name>[distribucion]</parent-name>
+          <remote-alias>regimen</remote-alias>
+          <ordinal>1</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>orden_regimen</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[orden_regimen]</local-name>
+          <parent-name>[distribucion]</parent-name>
+          <remote-alias>orden_regimen</remote-alias>
+          <ordinal>2</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>vuelos</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[vuelos]</local-name>
+          <parent-name>[distribucion]</parent-name>
+          <remote-alias>vuelos</remote-alias>
+          <ordinal>3</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+      </metadata-records>
+    </connection>
+    <aliases enabled='yes' />
+    <column datatype='integer' name="[minutos]" role='dimension' type='ordinal' />
+    <column datatype='string' name="[regimen]" role='dimension' type='nominal' />
+    <column datatype='integer' name="[orden_regimen]" role='dimension' type='ordinal' />
+    <column datatype='integer' name="[vuelos]" role='measure' type='quantitative' />
+    <column caption="Regimen de demora" datatype='string' name='[RegimenDemora]' role='dimension' type='nominal'>
+      <calculation class='tableau' formula="STR([orden_regimen]) + '. ' + [regimen]" scope-isolation='false' />
+    </column>
+    <column-instance column='[RegimenDemora]' derivation='None' name="[none:RegimenDemora:nk]" pivot='key' type='nominal' />
+    <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+    <style>
+      <style-rule element='mark'>
+        <encoding attr='color' field="[none:RegimenDemora:nk]" type='palette'>
+          <map to='#3ddc97'>
+            <bucket>&quot;1. Puntual&quot;</bucket>
+          </map>
+          <map to='#2bd4e8'>
+            <bucket>&quot;2. Demora breve&quot;</bucket>
+          </map>
+          <map to='#f2545b'>
+            <bucket>&quot;3. Demora prolongada&quot;</bucket>
+          </map>
+        </encoding>
+      </style-rule>
+    </style>
+  </datasource>
+  <datasource caption="Aeropuertos" inline='true' name='federated.aeropuertos' version='18.1'>
+    <connection class='federated'>
+      <named-connections>
+        <named-connection caption="Aeropuertos" name='hyper.aeropuertos'>
+          <connection class='hyper' dbname='Data/retraso_red_aerea_2017.hyper' schema='Extract' server='' username='tableau_internal_user' />
+        </named-connection>
+      </named-connections>
+      <relation connection='hyper.aeropuertos' name="aeropuertos" table='[Extract].[aeropuertos]' type='table'>
+        <columns header='yes' outcome='6'>
+          <column datatype='string' name="codigo" ordinal='0' />
+          <column datatype='string' name="nombre" ordinal='1' />
+          <column datatype='string' name="ciudad" ordinal='2' />
+          <column datatype='string' name="banda" ordinal='3' />
+          <column datatype='integer' name="orden_banda" ordinal='4' />
+          <column datatype='real' name="longitud" ordinal='5' />
+          <column datatype='real' name="latitud" ordinal='6' />
+          <column datatype='integer' name="vuelos" ordinal='7' />
+          <column datatype='integer' name="minutos" ordinal='8' />
+          <column datatype='integer' name="prolongadas" ordinal='9' />
+          <column datatype='real' name="demora_media" ordinal='10' />
+          <column datatype='real' name="pct_vuelos" ordinal='11' />
+          <column datatype='real' name="pct_retraso" ordinal='12' />
+          <column datatype='real' name="indice" ordinal='13' />
+        </columns>
+      </relation>
+      <metadata-records>
+        <metadata-record class='column'>
+          <remote-name>codigo</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[codigo]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>codigo</remote-alias>
+          <ordinal>0</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>nombre</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[nombre]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>nombre</remote-alias>
+          <ordinal>1</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>ciudad</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[ciudad]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>ciudad</remote-alias>
+          <ordinal>2</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>banda</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[banda]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>banda</remote-alias>
+          <ordinal>3</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>orden_banda</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[orden_banda]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>orden_banda</remote-alias>
+          <ordinal>4</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>longitud</remote-name>
+          <remote-type>5</remote-type>
+          <local-name>[longitud]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>longitud</remote-alias>
+          <ordinal>5</ordinal>
+          <local-type>real</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>latitud</remote-name>
+          <remote-type>5</remote-type>
+          <local-name>[latitud]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>latitud</remote-alias>
+          <ordinal>6</ordinal>
+          <local-type>real</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>vuelos</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[vuelos]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>vuelos</remote-alias>
+          <ordinal>7</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>minutos</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[minutos]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>minutos</remote-alias>
+          <ordinal>8</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>prolongadas</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[prolongadas]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>prolongadas</remote-alias>
+          <ordinal>9</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>demora_media</remote-name>
+          <remote-type>5</remote-type>
+          <local-name>[demora_media]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>demora_media</remote-alias>
+          <ordinal>10</ordinal>
+          <local-type>real</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>pct_vuelos</remote-name>
+          <remote-type>5</remote-type>
+          <local-name>[pct_vuelos]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>pct_vuelos</remote-alias>
+          <ordinal>11</ordinal>
+          <local-type>real</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>pct_retraso</remote-name>
+          <remote-type>5</remote-type>
+          <local-name>[pct_retraso]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>pct_retraso</remote-alias>
+          <ordinal>12</ordinal>
+          <local-type>real</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>indice</remote-name>
+          <remote-type>5</remote-type>
+          <local-name>[indice]</local-name>
+          <parent-name>[aeropuertos]</parent-name>
+          <remote-alias>indice</remote-alias>
+          <ordinal>13</ordinal>
+          <local-type>real</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+      </metadata-records>
+    </connection>
+    <aliases enabled='yes' />
+    <column datatype='string' name="[codigo]" role='dimension' type='nominal' />
+    <column datatype='string' name="[nombre]" role='dimension' type='nominal' />
+    <column datatype='string' name="[ciudad]" role='dimension' type='nominal' />
+    <column datatype='string' name="[banda]" role='dimension' type='nominal' />
+    <column datatype='integer' name="[orden_banda]" role='dimension' type='ordinal' />
+    <column datatype='real' name="[longitud]" role='measure' semantic-role="[Longitude]" type='quantitative' />
+    <column datatype='real' name="[latitud]" role='measure' semantic-role="[Latitude]" type='quantitative' />
+    <column datatype='integer' name="[vuelos]" role='measure' type='quantitative' />
+    <column datatype='integer' name="[minutos]" role='dimension' type='ordinal' />
+    <column datatype='integer' name="[prolongadas]" role='measure' type='quantitative' />
+    <column datatype='real' name="[demora_media]" role='measure' type='quantitative' />
+    <column datatype='real' name="[pct_vuelos]" role='measure' type='quantitative' />
+    <column datatype='real' name="[pct_retraso]" role='measure' type='quantitative' />
+    <column datatype='real' name="[indice]" role='measure' type='quantitative' />
+    <column caption="Demora media de salida (min)" datatype='real' default-format="n#,##0.00" name='[DemoraMedia]' role='measure' type='quantitative'>
+      <calculation class='tableau' formula="SUM([minutos]) / SUM([vuelos])" scope-isolation='false' />
+    </column>
+    <column caption="Indice de concentracion" datatype='real' default-format="n#,##0.000" name='[Indice]' role='measure' type='quantitative'>
+      <calculation class='tableau' formula="(SUM([minutos]) / TOTAL(SUM([minutos]))) / (SUM([vuelos]) / TOTAL(SUM([vuelos])))" scope-isolation='false' />
+    </column>
+    <column caption="Banda de trafico" datatype='string' name='[BandaTrafico]' role='dimension' type='nominal'>
+      <calculation class='tableau' formula="STR([orden_banda]) + '. ' + [banda]" scope-isolation='false' />
+    </column>
+    <column-instance column='[BandaTrafico]' derivation='None' name="[none:BandaTrafico:nk]" pivot='key' type='nominal' />
+    <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+    <style>
+      <style-rule element='mark'>
+        <encoding attr='color' field="[none:BandaTrafico:nk]" type='palette'>
+          <map to='#2bd4e8'>
+            <bucket>&quot;1. Principal&quot;</bucket>
+          </map>
+          <map to='#7fa8bc'>
+            <bucket>&quot;2. Intermedio&quot;</bucket>
+          </map>
+          <map to='#44606e'>
+            <bucket>&quot;3. Secundario&quot;</bucket>
+          </map>
+        </encoding>
+      </style-rule>
+    </style>
+  </datasource>
+  <datasource caption="Tiempo" inline='true' name='federated.tiempo' version='18.1'>
+    <connection class='federated'>
+      <named-connections>
+        <named-connection caption="Tiempo" name='hyper.tiempo'>
+          <connection class='hyper' dbname='Data/retraso_red_aerea_2017.hyper' schema='Extract' server='' username='tableau_internal_user' />
+        </named-connection>
+      </named-connections>
+      <relation connection='hyper.tiempo' name="tiempo" table='[Extract].[tiempo]' type='table'>
+        <columns header='yes' outcome='6'>
+          <column datatype='integer' name="hora" ordinal='0' />
+          <column datatype='string' name="etiqueta_hora" ordinal='1' />
+          <column datatype='string' name="bloque" ordinal='2' />
+          <column datatype='integer' name="orden_bloque" ordinal='3' />
+          <column datatype='string' name="nombre_dia" ordinal='4' />
+          <column datatype='integer' name="dia_semana" ordinal='5' />
+          <column datatype='integer' name="vuelos" ordinal='6' />
+          <column datatype='integer' name="minutos" ordinal='7' />
+          <column datatype='integer' name="prolongadas" ordinal='8' />
+        </columns>
+      </relation>
+      <metadata-records>
+        <metadata-record class='column'>
+          <remote-name>hora</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[hora]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>hora</remote-alias>
+          <ordinal>0</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>etiqueta_hora</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[etiqueta_hora]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>etiqueta_hora</remote-alias>
+          <ordinal>1</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>bloque</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[bloque]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>bloque</remote-alias>
+          <ordinal>2</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>orden_bloque</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[orden_bloque]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>orden_bloque</remote-alias>
+          <ordinal>3</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>nombre_dia</remote-name>
+          <remote-type>130</remote-type>
+          <local-name>[nombre_dia]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>nombre_dia</remote-alias>
+          <ordinal>4</ordinal>
+          <local-type>string</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>dia_semana</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[dia_semana]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>dia_semana</remote-alias>
+          <ordinal>5</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>vuelos</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[vuelos]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>vuelos</remote-alias>
+          <ordinal>6</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>minutos</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[minutos]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>minutos</remote-alias>
+          <ordinal>7</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Count</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+        <metadata-record class='column'>
+          <remote-name>prolongadas</remote-name>
+          <remote-type>20</remote-type>
+          <local-name>[prolongadas]</local-name>
+          <parent-name>[tiempo]</parent-name>
+          <remote-alias>prolongadas</remote-alias>
+          <ordinal>8</ordinal>
+          <local-type>integer</local-type>
+          <aggregation>Sum</aggregation>
+          <contains-null>true</contains-null>
+        </metadata-record>
+      </metadata-records>
+    </connection>
+    <aliases enabled='yes' />
+    <column datatype='integer' name="[hora]" role='dimension' type='ordinal' />
+    <column datatype='string' name="[etiqueta_hora]" role='dimension' type='nominal' />
+    <column datatype='string' name="[bloque]" role='dimension' type='nominal' />
+    <column datatype='integer' name="[orden_bloque]" role='dimension' type='ordinal' />
+    <column datatype='string' name="[nombre_dia]" role='dimension' type='nominal' />
+    <column datatype='integer' name="[dia_semana]" role='dimension' type='ordinal' />
+    <column datatype='integer' name="[vuelos]" role='measure' type='quantitative' />
+    <column datatype='integer' name="[minutos]" role='dimension' type='ordinal' />
+    <column datatype='integer' name="[prolongadas]" role='measure' type='quantitative' />
+    <column caption="Demora media de salida (min)" datatype='real' default-format="n#,##0.00" name='[DemoraMedia]' role='measure' type='quantitative'>
+      <calculation class='tableau' formula="SUM([minutos]) / SUM([vuelos])" scope-isolation='false' />
+    </column>
+    <column caption="Dia de la semana" datatype='string' name='[DiaOrdenado]' role='dimension' type='nominal'>
+      <calculation class='tableau' formula="STR([dia_semana]) + '. ' + [nombre_dia]" scope-isolation='false' />
+    </column>
+    <column-instance column='[DiaOrdenado]' derivation='None' name="[none:DiaOrdenado:nk]" pivot='key' type='nominal' />
+    <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+  </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name="Cobertura del registro">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#35505C' fontsize='11'>Vuelos programados y vuelos con hora real, por fecha</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Cobertura" name='federated.cobertura' />
+          </datasources>
+          <datasource-dependencies datasource='federated.cobertura'>
+            <column datatype='date' name="[fecha]" role='dimension' type='ordinal' />
+            <column datatype='integer' name="[programados]" role='measure' type='quantitative' />
+            <column datatype='integer' name="[operados]" role='measure' type='quantitative' />
+            <column-instance column="[fecha]" derivation='None' name="[none:fecha:ok]" pivot='key' type='ordinal' />
+            <column-instance column="[programados]" derivation='Sum' name="[sum:programados:qk]" pivot='key' type='quantitative' />
+            <column-instance column="[operados]" derivation='Sum' name="[sum:operados:qk]" pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='background-color' value='#FFFFFF' />
+          </style-rule>
+          <style-rule element='axis'>
+            <format attr='color' value='#6E8894' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='color' value='#35505C' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.cobertura].[sum:programados:qk] + [federated.cobertura].[sum:operados:qk]</rows>
+        <cols>[federated.cobertura].[none:fecha:ok]</cols>
+      </table>
+      <simple-id uuid='{F4E77B07-A44C-590F-A1A9-6AB3BDFF0BE4}' />
+    </worksheet>
+    <worksheet name="La forma de la distribucion">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#35505C' fontsize='11'>Vuelos por minuto de demora de salida. Entre 12 y 123 no hay ninguno</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Distribucion" name='federated.distribucion' />
+          </datasources>
+          <datasource-dependencies datasource='federated.distribucion'>
+            <column datatype='integer' name="[minutos]" role='dimension' type='ordinal' />
+            <column datatype='integer' name="[vuelos]" role='measure' type='quantitative' />
+            <column caption="Regimen de demora" datatype='string' name='[RegimenDemora]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula="STR([orden_regimen]) + '. ' + [regimen]" scope-isolation='false' />
+            </column>
+            <column-instance column="[minutos]" derivation='None' name="[none:minutos:ok]" pivot='key' type='ordinal' />
+            <column-instance column="[vuelos]" derivation='Sum' name="[sum:vuelos:qk]" pivot='key' type='quantitative' />
+            <column-instance column='[RegimenDemora]' derivation='None' name="[none:RegimenDemora:nk]" pivot='key' type='nominal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='background-color' value='#FFFFFF' />
+          </style-rule>
+          <style-rule element='axis'>
+            <format attr='color' value='#6E8894' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='color' value='#35505C' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <color column="[federated.distribucion].[federated.distribucion].[none:RegimenDemora:nk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.distribucion].[sum:vuelos:qk]</rows>
+        <cols>[federated.distribucion].[none:minutos:ok]</cols>
+      </table>
+      <simple-id uuid='{79A97A45-BCDE-5B02-A411-DDB78FA8302D}' />
+    </worksheet>
+    <worksheet name="El mapa de la red">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#35505C' fontsize='11'>Tamano por volumen, color por indice de concentracion</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Aeropuertos" name='federated.aeropuertos' />
+          </datasources>
+          <datasource-dependencies datasource='federated.aeropuertos'>
+            <column datatype='string' name="[codigo]" role='dimension' type='nominal' />
+            <column datatype='integer' name="[vuelos]" role='measure' type='quantitative' />
+            <column datatype='real' name="[longitud]" role='measure' semantic-role="[Longitude]" type='quantitative' />
+            <column datatype='real' name="[latitud]" role='measure' semantic-role="[Latitude]" type='quantitative' />
+            <column caption="Indice de concentracion" datatype='real' default-format="n#,##0.000" name='[Indice]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula="(SUM([minutos]) / TOTAL(SUM([minutos]))) / (SUM([vuelos]) / TOTAL(SUM([vuelos])))" scope-isolation='false' />
+            </column>
+            <column-instance column="[codigo]" derivation='None' name="[none:codigo:nk]" pivot='key' type='nominal' />
+            <column-instance column="[vuelos]" derivation='Sum' name="[sum:vuelos:qk]" pivot='key' type='quantitative' />
+            <column-instance column="[longitud]" derivation='Avg' name="[avg:longitud:qk]" pivot='key' type='quantitative' />
+            <column-instance column="[latitud]" derivation='Avg' name="[avg:latitud:qk]" pivot='key' type='quantitative' />
+            <column-instance column='[Indice]' derivation='User' name="[usr:Indice:qk]" pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='background-color' value='#FFFFFF' />
+          </style-rule>
+          <style-rule element='axis'>
+            <format attr='color' value='#6E8894' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='color' value='#35505C' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <encodings>
+              <color column="[federated.aeropuertos].[federated.aeropuertos].[usr:Indice:qk]" />
+              <size column="[federated.aeropuertos].[federated.aeropuertos].[sum:vuelos:qk]" />
+              <lod column="[federated.aeropuertos].[federated.aeropuertos].[none:codigo:nk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.aeropuertos].[avg:latitud:qk]</rows>
+        <cols>[federated.aeropuertos].[avg:longitud:qk]</cols>
+      </table>
+      <simple-id uuid='{C9C999F6-4E77-54E0-92D6-ABCFDC0B6D8F}' />
+    </worksheet>
+    <worksheet name="El reparto temporal">
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#35505C' fontsize='11'>Demora media por hora y dia de la semana</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption="Tiempo" name='federated.tiempo' />
+          </datasources>
+          <datasource-dependencies datasource='federated.tiempo'>
+            <column datatype='string' name="[etiqueta_hora]" role='dimension' type='nominal' />
+            <column datatype='integer' name="[vuelos]" role='measure' type='quantitative' />
+            <column datatype='integer' name="[minutos]" role='measure' type='quantitative' />
+            <column caption="Dia de la semana" datatype='string' name='[DiaOrdenado]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula="STR([dia_semana]) + '. ' + [nombre_dia]" scope-isolation='false' />
+            </column>
+            <column caption="Demora media de salida (min)" datatype='real' default-format="n#,##0.00" name='[DemoraMedia]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula="SUM([minutos]) / SUM([vuelos])" scope-isolation='false' />
+            </column>
+            <column-instance column="[etiqueta_hora]" derivation='None' name="[none:etiqueta_hora:nk]" pivot='key' type='nominal' />
+            <column-instance column="[vuelos]" derivation='Sum' name="[sum:vuelos:qk]" pivot='key' type='quantitative' />
+            <column-instance column="[minutos]" derivation='Sum' name="[sum:minutos:qk]" pivot='key' type='quantitative' />
+            <column-instance column='[DiaOrdenado]' derivation='None' name="[none:DiaOrdenado:nk]" pivot='key' type='nominal' />
+            <column-instance column='[DemoraMedia]' derivation='User' name="[usr:DemoraMedia:qk]" pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='background-color' value='#FFFFFF' />
+          </style-rule>
+          <style-rule element='axis'>
+            <format attr='color' value='#6E8894' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='color' value='#35505C' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Square' />
+            <encodings>
+              <color column="[federated.tiempo].[federated.tiempo].[usr:DemoraMedia:qk]" />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.tiempo].[none:etiqueta_hora:nk]</rows>
+        <cols>[federated.tiempo].[none:DiaOrdenado:nk]</cols>
+      </table>
+      <simple-id uuid='{D925C779-1B75-5E7F-8F34-0B83EB50EF7B}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name="Concentracion del retraso">
+      <size maxheight='1500' maxwidth='1200' minheight='1500' minwidth='1200' />
+      <zones>
+      <zone h='100000' id='1' type-v2='layout-basic' w='100000' x='0' y='0'>
+        <zone h='4000' id='90' type-v2='text' w='100000' x='0' y='0'>
+          <formatted-text>
+            <run bold='true' fontcolor='#12222B' fontsize='20'>Concentracion del retraso en la red aerea domestica, 2017</run>
+          </formatted-text>
+          <zone-style>
+            <format attr='border-color' value='#F6F9FA' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+          </zone-style>
+        </zone>
+        <zone h='3200' id='91' type-v2='text' w='100000' x='0' y='4000'>
+          <formatted-text>
+            <run bold='false' fontcolor='#6E8894' fontsize='11'>El retraso se reparte en proporcion al volumen: el indice de los catorce aeropuertos principales es 1,02. La estructura no esta en la red, esta en la forma de la distribucion.</run>
+          </formatted-text>
+          <zone-style>
+            <format attr='border-color' value='#F6F9FA' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+          </zone-style>
+        </zone>
+        <zone h='23000' id='10' name="Cobertura del registro" w='100000' x='0' y='7200'>
+          <zone-style>
+            <format attr='border-color' value='#F6F9FA' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+          </zone-style>
+        </zone>
+        <zone h='23000' id='11' name="La forma de la distribucion" w='100000' x='0' y='30200'>
+          <zone-style>
+            <format attr='border-color' value='#F6F9FA' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+          </zone-style>
+        </zone>
+        <zone h='23000' id='12' name="El mapa de la red" w='50000' x='0' y='53200'>
+          <zone-style>
+            <format attr='border-color' value='#F6F9FA' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+          </zone-style>
+        </zone>
+        <zone h='23000' id='13' name="El reparto temporal" w='50000' x='50000' y='53200'>
+          <zone-style>
+            <format attr='border-color' value='#F6F9FA' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+          </zone-style>
+        </zone>
+        <zone h='2300' id='95' type-v2='text' w='100000' x='0' y='76200'>
+          <formatted-text>
+            <run bold='false' fontcolor='#6E8894' fontsize='9'>Escuela de Estadistica y Ciencias Actuariales - Universidad Central de Venezuela - Computacion II</run>
+          </formatted-text>
+          <zone-style>
+            <format attr='border-color' value='#F6F9FA' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='4' />
+          </zone-style>
+        </zone>
+        <zone-style>
+          <format attr='background-color' value='#F6F9FA' />
+          <format attr='background-image' value='' />
+          <format attr='border-color' value='#000000' />
+          <format attr='border-style' value='none' />
+          <format attr='border-width' value='0' />
+          <format attr='margin' value='8' />
+        </zone-style>
+      </zone>
+      </zones>
+      <simple-id uuid='{805F5C44-CF5B-5D04-8D2C-A8D53398BF1F}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='30'>
+    <window class='worksheet' hidden='true' name="Cobertura del registro">
+      <viewpoint />
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{9683C0D0-635F-56FE-8C36-D1AAC1661069}' />
+    </window>
+    <window class='worksheet' hidden='true' name="La forma de la distribucion">
+      <viewpoint />
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{639D3BBC-2DE9-5706-B46A-B238AA727F86}' />
+    </window>
+    <window class='worksheet' hidden='true' name="El mapa de la red">
+      <viewpoint />
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{A17F6E55-D70A-56BE-BAF7-7DBCC389B913}' />
+    </window>
+    <window class='worksheet' hidden='true' name="El reparto temporal">
+      <viewpoint />
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{F77481AD-22F5-5FDB-87F6-6A8A62653338}' />
+    </window>
+    <window class='dashboard' maximized='true' name="Concentracion del retraso">
+      <viewpoints>
+        <viewpoint name="Cobertura del registro"><zoom type='entire-view' /></viewpoint>
+        <viewpoint name="La forma de la distribucion"><zoom type='entire-view' /></viewpoint>
+        <viewpoint name="El mapa de la red"><zoom type='entire-view' /></viewpoint>
+        <viewpoint name="El reparto temporal"><zoom type='entire-view' /></viewpoint>
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{E95EB45F-E0C0-5204-A4DD-2C85B7C28C0D}' />
+    </window>
+  </windows>
+</workbook>
