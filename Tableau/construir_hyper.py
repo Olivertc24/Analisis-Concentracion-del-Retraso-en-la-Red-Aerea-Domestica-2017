@@ -79,6 +79,9 @@ CONSULTAS = {
         GROUP BY 1, 2, 3, 4, 5, 6, 7 ORDER BY minutos DESC
     """,
     # --- hoja 4: el reparto temporal -------------------------------------
+    # Se entregan `vuelos` y `minutos`, NO la demora media ya calculada. El
+    # tablero la obtiene como cociente de sumas: promediar las medias de cada
+    # celda daria una media no ponderada, que es distinta y esta mal.
     "tiempo": """
         SELECT f.franja_id::INTEGER   AS hora,
                f.hora                 AS etiqueta_hora,
@@ -87,7 +90,7 @@ CONSULTAS = {
                t.nombre_dia,
                t.dia_semana::INTEGER  AS dia_semana,
                COUNT(*)::INTEGER                                AS vuelos,
-               ROUND(AVG(d.demora_salida_min), 2)               AS demora_media,
+               SUM(d.demora_salida_min)::INTEGER                AS minutos,
                (COUNT(*) FILTER (WHERE d.regimen_id = 3))::INTEGER AS prolongadas
         FROM h_demoras d
         JOIN h_vuelos v ON v.vuelo_id  = d.vuelo_id
