@@ -666,7 +666,7 @@
             </view>
             <mark class='Bar' />
             <encodings>
-              <color column="[federated.distribucion].[federated.distribucion].[none:RegimenDemora:nk]" />
+              <color column="[federated.distribucion].[none:RegimenDemora:nk]" />
             </encodings>
           </pane>
         </panes>
@@ -726,9 +726,9 @@
             </view>
             <mark class='Circle' />
             <encodings>
-              <color column="[federated.aeropuertos].[federated.aeropuertos].[usr:Indice:qk]" />
-              <size column="[federated.aeropuertos].[federated.aeropuertos].[sum:vuelos:qk]" />
-              <lod column="[federated.aeropuertos].[federated.aeropuertos].[none:codigo:nk]" />
+              <color column="[federated.aeropuertos].[usr:Indice:qk]" />
+              <size column="[federated.aeropuertos].[sum:vuelos:qk]" />
+              <lod column="[federated.aeropuertos].[none:codigo:nk]" />
             </encodings>
           </pane>
         </panes>
@@ -790,7 +790,7 @@
             </view>
             <mark class='Square' />
             <encodings>
-              <color column="[federated.tiempo].[federated.tiempo].[usr:DemoraMedia:qk]" />
+              <color column="[federated.tiempo].[usr:DemoraMedia:qk]" />
             </encodings>
           </pane>
         </panes>

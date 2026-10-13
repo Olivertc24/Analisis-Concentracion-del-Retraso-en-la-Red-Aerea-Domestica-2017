@@ -378,15 +378,19 @@ def hoja(nombre, titulo, tabla, esquema, dims, medidas, calcs, filas, columnas,
           "          <pane selection-relaxation-option='selection-relaxation-allow'>",
           "            <view>", "              <breakdown value='auto' />",
           "            </view>", f"            <mark class='{marca}' />"]
+    # OJO: color, tamano y detalle llegan YA cualificados con su fuente, igual
+    # que `filas` y `columnas`. Volver a aplicarles ref() duplicaba el prefijo
+    # -[federated.x].[federated.x].[none:...]- y Tableau descartaba la
+    # codificacion EN SILENCIO: el mapa se colapsaba en un unico punto.
     cod = []
     if color:
-        cod.append(f"<color column={a(ref(color, ds))} />")
+        cod.append(f"<color column={a(color)} />")
     if tamano:
-        cod.append(f"<size column={a(ref(tamano, ds))} />")
+        cod.append(f"<size column={a(tamano)} />")
     if detalle:
         # <lod> fija una marca por valor del campo. Es lo que convierte el mapa
         # en 104 aeropuertos y no en un unico punto promedio.
-        cod.append(f"<lod column={a(ref(detalle, ds))} />")
+        cod.append(f"<lod column={a(detalle)} />")
     if cod:
         o.append("            <encodings>")
         o += ["              " + c for c in cod]
